@@ -23,7 +23,7 @@
     </p>
     <div class="hero-actions">
         <a href="{{ url_for('register') }}" class="btn-primary">Create free account</a>
-        <a href="{{ url_for('login') }}" class="btn-primary">See how it works</a>
+        <a href="{{ url_for('login') }}" class="btn-primary" data-open-demo>See how it works</a>
     </div>
 
     <div class="hero-mock">
@@ -104,4 +104,75 @@
     </div>
 </section>
 
+<div class="demo-modal" id="demo-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="See how Spendly works">
+    <div class="demo-modal-backdrop" data-close-demo></div>
+    <div class="demo-modal-panel" role="document">
+        <button type="button" class="demo-modal-close" data-close-demo aria-label="Close video">&times;</button>
+        <div class="demo-modal-video">
+            <iframe
+                id="demo-modal-iframe"
+                src=""
+                title="Spendly demo video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    (function () {
+        var VIDEO_SRC = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0';
+        var modal = document.getElementById('demo-modal');
+        var iframe = document.getElementById('demo-modal-iframe');
+        var openers = document.querySelectorAll('[data-open-demo]');
+        var closers = modal.querySelectorAll('[data-close-demo]');
+        var lastFocused = null;
+
+        function openModal() {
+            lastFocused = document.activeElement;
+            iframe.src = VIDEO_SRC;
+            modal.classList.add('is-open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            var closeBtn = modal.querySelector('.demo-modal-close');
+            if (closeBtn) closeBtn.focus();
+        }
+
+        function closeModal() {
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden', 'true');
+            // Blank the iframe src so the YouTube player is torn down
+            // and audio/video stops playing in the background.
+            iframe.src = '';
+            document.body.style.overflow = '';
+            if (lastFocused && typeof lastFocused.focus === 'function') {
+                lastFocused.focus();
+            }
+        }
+
+        openers.forEach(function (el) {
+            el.addEventListener('click', function (e) {
+                e.preventDefault();
+                openModal();
+            });
+        });
+
+        closers.forEach(function (el) {
+            el.addEventListener('click', function (e) {
+                e.preventDefault();
+                closeModal();
+            });
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+                closeModal();
+            }
+        });
+    })();
+</script>
 {% endblock %}

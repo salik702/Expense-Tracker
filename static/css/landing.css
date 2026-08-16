@@ -216,3 +216,80 @@
     .hero-actions .btn-primary { width: 100%; }
     .mock-window { padding: 1rem 1rem 1.25rem; }
 }
+
+/* ------------------------------------------------------------------ */
+/* Demo video modal                                                    */
+/* ------------------------------------------------------------------ */
+
+.demo-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.demo-modal.is-open { display: flex; }
+
+.demo-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 15, 15, 0.72);
+    backdrop-filter: blur(2px);
+    cursor: pointer;
+}
+
+.demo-modal-panel {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    background: var(--ink);
+    border-radius: var(--radius-md);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+.demo-modal-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.85rem;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--paper);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.demo-modal-close:hover { background: rgba(255, 255, 255, 0.22); }
+.demo-modal-close:focus { outline: 2px solid var(--paper); outline-offset: 2px; }
+
+.demo-modal-video {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+}
+
+.demo-modal-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .demo-modal { padding: 1rem; }
+    .demo-modal-close { top: 0.4rem; right: 0.55rem; }
+}
