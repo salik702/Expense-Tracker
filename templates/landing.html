@@ -124,6 +124,33 @@
 
 {% block scripts %}
 <script>
+    // Show welcome message popup on login
+    (function () {
+        var welcomeMessage = '{{ session.pop("welcome_message", "") if session else "" }}';
+        if (welcomeMessage) {
+            var popup = document.createElement('div');
+            popup.className = 'welcome-popup';
+            popup.innerHTML = '<div class="welcome-popup-content"> <span class="welcome-popup-close">&times;</span> <p>' + welcomeMessage + '</p> </div>';
+            document.body.appendChild(popup);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(function() {
+                popup.classList.add('welcome-popup-show');
+            }, 100);
+            
+            setTimeout(function() {
+                popup.classList.remove('welcome-popup-show');
+                setTimeout(function() { popup.remove(); }, 300);
+            }, 5000);
+            
+            // Close on click
+            popup.querySelector('.welcome-popup-close').addEventListener('click', function() {
+                popup.classList.remove('welcome-popup-show');
+                setTimeout(function() { popup.remove(); }, 300);
+            });
+        }
+    })();
+
     (function () {
         var VIDEO_SRC = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0';
         var modal = document.getElementById('demo-modal');

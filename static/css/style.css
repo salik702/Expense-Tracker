@@ -719,3 +719,72 @@ a { color: inherit; text-decoration: none; }
         font-size: 1.25rem;
     }
 }
+
+/* ------------------------------------------------------------------ */
+/* Welcome Popup                                                        */
+/* ------------------------------------------------------------------ */
+
+.welcome-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    transform: translateY(-20px);
+}
+
+.welcome-popup.welcome-popup-show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.welcome-popup-content {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.welcome-popup-close {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--ink-muted);
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.welcome-popup-close:hover {
+    color: var(--ink);
+}
+
+.welcome-popup p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--ink);
+    font-weight: 500;
+}
+
+[data-theme="dark"] .welcome-popup-content {
+    background: var(--paper-card);
+    border-color: var(--border-soft);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .welcome-popup p {
+    color: var(--ink);
+}
+
+[data-theme="dark"] .welcome-popup-close {
+    color: var(--ink-muted);
+}
+
+[data-theme="dark"] .welcome-popup-close:hover {
+    color: var(--ink);
+}

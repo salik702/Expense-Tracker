@@ -81,3 +81,12 @@ def seed_db():
     )
     conn.commit()
     conn.close()
+
+
+def get_user_by_email(email):
+    conn = get_db()
+    user = conn.execute(
+        "SELECT id, name, email, password_hash FROM users WHERE email = ?", (email,)
+    ).fetchone()
+    conn.close()
+    return user
