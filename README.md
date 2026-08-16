@@ -229,7 +229,7 @@ Spendly uses a **warm editorial aesthetic** with:
 <div align="center">
 
 <!-- Footer Waving Banner -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:020817,40:0c1a3a,70:0e3a6e,100:020817&height=200&section=footer&text=SALIK%20AHMAD&fontSize=52&fontColor=ffffff&animation=twinkling&fontAlignY=45&desc=CS%20Student%20%E2%80%A2%20Web%20Developer%20%E2%80%A2%20Algorithm%20Enthusiast&descAlignY=68&descSize=16&descColor=67e8f9" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:020817,40:0c1a3a,70:0e3a6e,100:020817&height=200&section=footer&text=SALIK%20AHMAD&fontSize=52&fontColor=ffffff&animation=twinkling&fontAlignY=45&desc=AI%2FML%20Engineer&descAlignY=68&descSize=16&descColor=67e8f9" width="100%"/>
 
 <br/>
 
