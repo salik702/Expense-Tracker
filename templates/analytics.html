@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics — Spendly{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/analytics.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="analytics">
+    <div class="analytics-coming-soon">
+        <div class="analytics-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="20" x2="20" y2="20"></line>
+                <line x1="6" y1="16" x2="6" y2="11"></line>
+                <line x1="12" y1="16" x2="12" y2="5"></line>
+                <line x1="18" y1="16" x2="18" y2="13"></line>
+            </svg>
+        </div>
+
+        <span class="analytics-pill">Coming soon</span>
+
+        <h1 class="analytics-title">Analytics</h1>
+
+        <p class="analytics-subtitle">
+            Charts and insights about your spending are on the way — spot trends and understand your money at a glance.
+        </p>
+
+        <div class="analytics-features">
+            <div class="analytics-feature">
+                <span class="analytics-feature-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                        <polyline points="17 6 23 6 23 12"></polyline>
+                    </svg>
+                </span>
+                <div>
+                    <h3>Monthly trends</h3>
+                    <p>See how your spending moves month over month.</p>
+                </div>
+            </div>
+            <div class="analytics-feature">
+                <span class="analytics-feature-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                        <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                    </svg>
+                </span>
+                <div>
+                    <h3>Category insights</h3>
+                    <p>Break down exactly where your money goes.</p>
+                </div>
+            </div>
+            <div class="analytics-feature">
+                <span class="analytics-feature-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="6"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                </span>
+                <div>
+                    <h3>Smart summaries</h3>
+                    <p>Plain-language recaps of your biggest spending drivers.</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="{{ url_for('profile') }}" class="btn-primary">Back to your profile</a>
+    </div>
+</section>
+
+{% endblock %}
