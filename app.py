@@ -1,9 +1,16 @@
 import os
+from datetime import datetime
 
 from flask import Flask, redirect, render_template, request, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from database.db import get_db, init_db, seed_db, get_user_by_email
+from database.queries import (
+    get_category_breakdown,
+    get_recent_transactions,
+    get_summary_stats,
+    get_user_by_id,
+)
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SPENDLY_SECRET_KEY", "dev-secret-change-me")
@@ -166,31 +173,34 @@ def profile():
     if not session.get("user_id"):
         return redirect(url_for("login"))
 
-    user = {
-        "name": "Demo User",
-        "email": "demo@spendly.com",
-        "member_since": "January 2026",
-        "initials": "DU",
-    }
-    stats = {
-        "total_spent": "₨3,432.95",
-        "transaction_count": "128",
-        "top_category": "Food",
-    }
-    transactions = [
-        {"date": "Aug 16, 2026", "description": "Groceries for the week", "category": "Food", "amount": "₨124.50"},
-        {"date": "Aug 14, 2026", "description": "Metro card top-up", "category": "Transport", "amount": "₨20.00"},
-        {"date": "Aug 12, 2026", "description": "Electricity bill", "category": "Bills", "amount": "₨89.00"},
-        {"date": "Aug 10, 2026", "description": "Movie night", "category": "Entertainment", "amount": "₨15.00"},
-        {"date": "Aug 08, 2026", "description": "Pharmacy", "category": "Health", "amount": "₨45.30"},
-        {"date": "Aug 05, 2026", "description": "New shoes", "category": "Shopping", "amount": "₨120.00"},
-    ]
-    categories = [
-        {"name": "Food", "amount": "₨1,245.80", "pct": 36},
-        {"name": "Bills", "amount": "₨890.40", "pct": 26},
-        {"name": "Shopping", "amount": "₨676.65", "pct": 20},
-        {"name": "Transport", "amount": "₨620.10", "pct": 18},
-    ]
+    user_id = session["user_id"]
+    row = get_user_by_id(user_id)
+    if row is None:
+        return redirect(url_for("logout"))
+
+    name_parts = row["name"].split()
+    initials = (
+        "".join(part[0] for part in name_parts[:2]).upper()
+        if len(name_parts) >= 2
+        else row["name"][:2].upper()
+    )
+    user = {**row, "initials": initials}
+
+    stats = get_summary_stats(user_id)
+    stats["total_spent"] = f"₨{stats['total_spent']:,.2f}"
+    stats["transaction_count"] = str(stats["transaction_count"])
+
+    transactions = get_recent_transactions(user_id)
+    for txn in transactions:
+        txn["date"] = datetime.strptime(txn["date"], "%Y-%m-%d").strftime("%b %d, %Y")
+        txn["amount"] = f"₨{txn['amount']:,.2f}"
+        if txn["description"] is None:
+            txn["description"] = ""
+
+    categories = get_category_breakdown(user_id)
+    for cat in categories:
+        cat["amount"] = f"₨{cat['amount']:,.2f}"
+
     return render_template(
         "profile.html",
         user=user, stats=stats,

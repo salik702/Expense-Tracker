@@ -219,13 +219,13 @@
     border-radius: 999px;
 }
 
-.category-bar--food { width: 36%; background: var(--cat-food); }
-.category-bar--transport { width: 18%; background: var(--cat-transport); }
-.category-bar--bills { width: 26%; background: var(--cat-bills); }
-.category-bar--health { width: 12%; background: var(--cat-health); }
-.category-bar--entertainment { width: 8%; background: var(--cat-entertainment); }
-.category-bar--shopping { width: 20%; background: var(--cat-shopping); }
-.category-bar--other { width: 5%; background: var(--cat-other); }
+.category-bar--food { background: var(--cat-food); }
+.category-bar--transport { background: var(--cat-transport); }
+.category-bar--bills { background: var(--cat-bills); }
+.category-bar--health { background: var(--cat-health); }
+.category-bar--entertainment { background: var(--cat-entertainment); }
+.category-bar--shopping { background: var(--cat-shopping); }
+.category-bar--other { background: var(--cat-other); }
 
 .category-amount {
     font-size: 0.85rem;

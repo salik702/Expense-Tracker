@@ -69,7 +69,7 @@
                 <div class="category-row">
                     <span class="category-name">{{ cat.name }}</span>
                     <div class="category-track">
-                        <div class="category-bar category-bar--{{ cat.name|lower }}"></div>
+                        <div class="category-bar category-bar--{{ cat.name|lower }}" style="width: {{ cat.pct }}%"></div>
                     </div>
                     <span class="category-amount">{{ cat.amount }} · {{ cat.pct }}%</span>
                 </div>

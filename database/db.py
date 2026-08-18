@@ -65,12 +65,12 @@ def seed_db():
     day = today.day
 
     expenses = [
-        (user_id, 24.50, "Food", f"{month}-{max(day - 2, 1):02d}", "Groceries for the week"),
+        (user_id, 26.79, "Food", f"{month}-{max(day - 2, 1):02d}", "Groceries for the week"),
         (user_id, 6.75, "Transport", f"{month}-{max(day - 4, 1):02d}", "Metro card top-up"),
-        (user_id, 89.00, "Bills", f"{month}-{max(day - 6, 1):02d}", "Electricity bill"),
+        (user_id, 140.00, "Bills", f"{month}-{max(day - 6, 1):02d}", "Electricity bill"),
         (user_id, 45.30, "Health", f"{month}-{max(day - 8, 1):02d}", "Pharmacy"),
         (user_id, 15.00, "Entertainment", f"{month}-{max(day - 10, 1):02d}", "Movie night"),
-        (user_id, 120.00, "Shopping", f"{month}-{max(day - 12, 1):02d}", "New shoes"),
+        (user_id, 70.00, "Shopping", f"{month}-{max(day - 12, 1):02d}", "New shoes"),
         (user_id, 10.00, "Other", f"{month}-{max(day - 14, 1):02d}", None),
         (user_id, 32.40, "Food", f"{month}-{max(day - 16, 1):02d}", "Dinner out"),
     ]
