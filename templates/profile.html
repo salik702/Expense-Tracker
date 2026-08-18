@@ -31,6 +31,7 @@
             <input class="date-input" type="date" id="date_to" name="date_to" value="{{ date_to or '' }}">
             <button class="apply-btn" type="submit">Apply</button>
         </form>
+        <a href="{{ url_for('add_expense') }}" class="profile-add-btn">+ Add expense</a>
     </div>
 
     <div class="profile-stats">

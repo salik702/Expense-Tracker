@@ -1,0 +1,38 @@
+/* ------------------------------------------------------------------ */
+/* Add expense page                                                    */
+/* ------------------------------------------------------------------ */
+
+.amount-input-group {
+    display: flex;
+    align-items: stretch;
+}
+
+.currency-prefix {
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    border: 1px solid var(--border);
+    border-right: none;
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    background: var(--paper-warm);
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.amount-input-group .form-input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-hint {
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+}
+
+@media (max-width: 600px) {
+    .auth-section {
+        padding: 2rem 1rem;
+    }
+}
