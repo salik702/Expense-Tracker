@@ -1,25 +1,35 @@
 import calendar
+import math
 import os
 import re
+import secrets
 from datetime import date, datetime
 
-from flask import Flask, flash, redirect, render_template, request, session, url_for
+from flask import Flask, abort, flash, redirect, render_template, request, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from database.db import get_db, init_db, seed_db, get_user_by_email
+from database.db import CATEGORIES, get_db, init_db, seed_db, get_user_by_email
 from database.queries import (
     get_category_breakdown,
     get_recent_transactions,
     get_summary_stats,
     get_user_by_id,
+    insert_expense,
 )
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SPENDLY_SECRET_KEY", "dev-secret-change-me")
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
 with app.app_context():
     init_db()
     seed_db()
+
+
+@app.before_request
+def ensure_csrf_token():
+    if "csrf_token" not in session:
+        session["csrf_token"] = secrets.token_hex(16)
 
 
 # ------------------------------------------------------------------ #
@@ -295,9 +305,51 @@ def analytics():
     return render_template("analytics.html")
 
 
-@app.route("/expenses/add")
+@app.route("/expenses/add", methods=["GET", "POST"])
 def add_expense():
-    return "Add expense — coming in Step 7"
+    if not session.get("user_id"):
+        return redirect(url_for("login"))
+
+    if request.method == "GET":
+        return render_template("add_expense.html", categories=CATEGORIES)
+
+    if request.form.get("csrf_token") != session.get("csrf_token"):
+        abort(400)
+
+    amount = request.form.get("amount", "").strip()
+    category = request.form.get("category", "").strip()
+    date_str = request.form.get("date", "").strip()
+    description = request.form.get("description", "").strip()
+    form_data = {
+        "amount": amount,
+        "category": category,
+        "date": date_str,
+        "description": description,
+    }
+
+    try:
+        amount_value = float(amount)
+    except (TypeError, ValueError):
+        amount_value = None
+
+    if amount_value is None or not math.isfinite(amount_value) or amount_value <= 0:
+        error = "Please enter a valid amount greater than 0."
+    elif len(description) > 200:
+        error = "Description must be 200 characters or fewer."
+    elif category not in CATEGORIES:
+        error = "Please choose a valid category."
+    elif _parse_date(date_str) is None:
+        error = "Please enter a valid date."
+    else:
+        insert_expense(
+            session["user_id"], amount_value, category, date_str, description
+        )
+        flash("Expense added.")
+        return redirect(url_for("profile"))
+
+    return render_template(
+        "add_expense.html", error=error, categories=CATEGORIES, **form_data
+    )
 
 
 @app.route("/expenses/<int:id>/edit")

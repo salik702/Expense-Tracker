@@ -148,6 +148,25 @@
     border-color: var(--accent-2);
 }
 
+.profile-add-btn {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--paper);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 1rem;
+    white-space: nowrap;
+    transition: background-color 0.15s ease;
+}
+
+.profile-add-btn:hover {
+    background: var(--accent-2);
+    border-color: var(--accent-2);
+}
+
 /* ------------------------------------------------------------------ */
 /* Summary stats row                                                   */
 /* ------------------------------------------------------------------ */

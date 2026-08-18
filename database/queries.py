@@ -95,3 +95,16 @@ def get_category_breakdown(user_id, date_from=None, date_to=None):
     if remainder:
         breakdown[0]["pct"] += remainder
     return breakdown
+
+
+def insert_expense(user_id, amount, category, date, description):
+    conn = get_db()
+    try:
+        conn.execute(
+            "INSERT INTO expenses (user_id, amount, category, date, description) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (user_id, amount, category, date, description or None),
+        )
+        conn.commit()
+    finally:
+        conn.close()
