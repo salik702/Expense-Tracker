@@ -34,6 +34,21 @@
     --footer-fg: #f7f6f3;
     --modal-panel-bg: #0f0f0f;
     --modal-panel-fg: #f7f6f3;
+
+    --cat-food: #e8a23a;
+    --cat-food-bg: #fdf3e3;
+    --cat-transport: #5a8fd6;
+    --cat-transport-bg: #eaf1fb;
+    --cat-bills: #9a7cd4;
+    --cat-bills-bg: #f0eafb;
+    --cat-health: #2f8f6b;
+    --cat-health-bg: #e6f4ee;
+    --cat-entertainment: #c0563f;
+    --cat-entertainment-bg: #fbeae8;
+    --cat-shopping: #a45a92;
+    --cat-shopping-bg: #f8ecf4;
+    --cat-other: #6b6b6b;
+    --cat-other-bg: #eeebe4;
 }
 
 /* ------------------------------------------------------------------ */
@@ -62,6 +77,21 @@
     --footer-fg: #f1efe9;
     --modal-panel-bg: #0a0a09;
     --modal-panel-fg: #f1efe9;
+
+    --cat-food: #e3a352;
+    --cat-food-bg: #3a2e1a;
+    --cat-transport: #7ea7e0;
+    --cat-transport-bg: #233449;
+    --cat-bills: #b49ae2;
+    --cat-bills-bg: #332a44;
+    --cat-health: #56b891;
+    --cat-health-bg: #1d352c;
+    --cat-entertainment: #d97f6b;
+    --cat-entertainment-bg: #3a241f;
+    --cat-shopping: #c07fae;
+    --cat-shopping-bg: #3a2534;
+    --cat-other: #9a978d;
+    --cat-other-bg: #262624;
 }
 
 /* ------------------------------------------------------------------ */

@@ -194,9 +194,9 @@
     transition: width 0.6s ease;
 }
 
-.mock-bar-food { background: #e8a23a; }
-.mock-bar-travel { background: #5a8fd6; }
-.mock-bar-bills { background: #9a7cd4; }
+.mock-bar-food { background: var(--cat-food); }
+.mock-bar-travel { background: var(--cat-transport); }
+.mock-bar-bills { background: var(--cat-bills); }
 
 /* ------------------------------------------------------------------ */
 /* Responsive                                                          */
