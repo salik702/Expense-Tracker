@@ -18,6 +18,21 @@
         </div>
     </div>
 
+    <div class="profile-filter">
+        <div class="preset-group">
+            {% for preset in presets %}
+            <a class="preset-btn{% if preset.active %} is-active{% endif %}" href="{{ preset.href }}">{{ preset.label }}</a>
+            {% endfor %}
+        </div>
+        <form class="custom-range{% if active_preset == 'custom' %} is-active{% endif %}" method="GET" action="{{ url_for('profile') }}">
+            <label class="custom-range-label" for="date_from">From</label>
+            <input class="date-input" type="date" id="date_from" name="date_from" value="{{ date_from or '' }}">
+            <label class="custom-range-label" for="date_to">To</label>
+            <input class="date-input" type="date" id="date_to" name="date_to" value="{{ date_to or '' }}">
+            <button class="apply-btn" type="submit">Apply</button>
+        </form>
+    </div>
+
     <div class="profile-stats">
         <div class="profile-stat">
             <div class="profile-stat-label">Total spent</div>

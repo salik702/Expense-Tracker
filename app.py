@@ -1,7 +1,9 @@
+import calendar
 import os
-from datetime import datetime
+import re
+from datetime import date, datetime
 
-from flask import Flask, redirect, render_template, request, session, url_for
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from database.db import get_db, init_db, seed_db, get_user_by_email
@@ -18,6 +20,66 @@ app.secret_key = os.environ.get("SPENDLY_SECRET_KEY", "dev-secret-change-me")
 with app.app_context():
     init_db()
     seed_db()
+
+
+# ------------------------------------------------------------------ #
+# Profile helpers                                                     #
+# ------------------------------------------------------------------ #
+
+def _parse_date(value):
+    if not value:
+        return None
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        return None
+    try:
+        return datetime.strptime(value, "%Y-%m-%d").date()
+    except ValueError:
+        return None
+
+
+def _add_months(d, months):
+    total = d.month - 1 + months
+    year = d.year + total // 12
+    month = total % 12 + 1
+    return date(year, month, min(d.day, calendar.monthrange(year, month)[1]))
+
+
+def _preset_ranges(today):
+    return [
+        ("this_month", "This Month", today.replace(day=1), today),
+        ("last_3", "Last 3 Months", _add_months(today, -3), today),
+        ("last_6", "Last 6 Months", _add_months(today, -6), today),
+    ]
+
+
+def _build_filter_context(today, start_date, end_date):
+    ranges = _preset_ranges(today)
+    active_preset = "all_time"
+    if start_date is not None and end_date is not None:
+        active_preset = "custom"
+        for key, _, start, end in ranges:
+            if start == start_date and end == end_date:
+                active_preset = key
+                break
+
+    presets = [
+        {
+            "key": key,
+            "label": label,
+            "href": url_for("profile", date_from=start, date_to=end),
+            "active": active_preset == key,
+        }
+        for key, label, start, end in ranges
+    ]
+    presets.append(
+        {
+            "key": "all_time",
+            "label": "All Time",
+            "href": url_for("profile"),
+            "active": active_preset == "all_time",
+        }
+    )
+    return presets, active_preset
 
 
 # ------------------------------------------------------------------ #
@@ -186,18 +248,34 @@ def profile():
     )
     user = {**row, "initials": initials}
 
-    stats = get_summary_stats(user_id)
+    today = date.today()
+    start_date = _parse_date(request.args.get("date_from"))
+    end_date = _parse_date(request.args.get("date_to"))
+
+    if start_date is None or end_date is None:
+        start_date = end_date = None
+    elif start_date > end_date:
+        flash("Start date must be before end date.")
+        start_date = end_date = None
+
+    presets, active_preset = _build_filter_context(today, start_date, end_date)
+    date_from = start_date.isoformat() if start_date is not None else None
+    date_to = end_date.isoformat() if end_date is not None else None
+
+    stats = get_summary_stats(user_id, date_from=date_from, date_to=date_to)
     stats["total_spent"] = f"₨{stats['total_spent']:,.2f}"
     stats["transaction_count"] = str(stats["transaction_count"])
 
-    transactions = get_recent_transactions(user_id)
+    transactions = get_recent_transactions(
+        user_id, date_from=date_from, date_to=date_to
+    )
     for txn in transactions:
         txn["date"] = datetime.strptime(txn["date"], "%Y-%m-%d").strftime("%b %d, %Y")
         txn["amount"] = f"₨{txn['amount']:,.2f}"
         if txn["description"] is None:
             txn["description"] = ""
 
-    categories = get_category_breakdown(user_id)
+    categories = get_category_breakdown(user_id, date_from=date_from, date_to=date_to)
     for cat in categories:
         cat["amount"] = f"₨{cat['amount']:,.2f}"
 
@@ -205,6 +283,8 @@ def profile():
         "profile.html",
         user=user, stats=stats,
         transactions=transactions, categories=categories,
+        presets=presets, active_preset=active_preset,
+        date_from=date_from, date_to=date_to,
     )
 
 

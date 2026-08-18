@@ -525,6 +525,29 @@ a { color: inherit; text-decoration: none; }
     margin-bottom: 1.25rem;
 }
 
+.flash-messages {
+    max-width: var(--max-width);
+    margin: 1.5rem auto 0;
+    padding: 0 2rem;
+}
+
+.flash-messages:empty {
+    display: none;
+}
+
+.flash {
+    background: var(--danger-light);
+    color: var(--danger);
+    border: 1px solid var(--danger-border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+}
+
+.flash + .flash {
+    margin-top: 0.5rem;
+}
+
 .form-group { margin-bottom: 1.25rem; }
 
 .form-group label {
