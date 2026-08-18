@@ -36,6 +36,7 @@
                     <span class="theme-icon theme-icon-moon" aria-hidden="true">☾</span>
                 </button>
                 {% if session.get('user_id') %}
+                    <a href="{{ url_for('profile') }}">{{ session.get('name', 'Account') }}</a>
                     <a href="{{ url_for('logout') }}">Sign out</a>
                 {% else %}
                     <a href="{{ url_for('login') }}">Sign in</a>
