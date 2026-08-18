@@ -1,7 +1,6 @@
 ---
 description: Seed realistic dummy expenses for a specific user
-argument-hint: "<user_id> <count> <months>"
-allowed-tools: Read, Bash(python:*)
+agent: build
 ---
 
 Read database/db.py to understand the expenses table 

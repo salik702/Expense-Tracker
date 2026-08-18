@@ -1,6 +1,6 @@
 ---
 description: Create a single dummy user in the database
-allowed-tools: Read, Bash(python:*)
+agent: build
 ---
 
 Read database/db.py to understand the users table
