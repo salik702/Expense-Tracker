@@ -298,6 +298,32 @@
     color: var(--paper);
 }
 
+.txn-delete-form {
+    display: inline;
+    margin: 0;
+}
+
+.txn-delete-btn {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--danger);
+    background: transparent;
+    border: 1px solid var(--danger);
+    border-radius: var(--radius-sm);
+    padding: 0.2rem 0.6rem;
+    margin-left: 0.4rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.txn-delete-btn:hover {
+    background: var(--danger);
+    color: var(--paper);
+}
+
 /* ------------------------------------------------------------------ */
 /* Category badges                                                     */
 /* ------------------------------------------------------------------ */

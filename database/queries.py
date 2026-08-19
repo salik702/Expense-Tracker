@@ -32,9 +32,7 @@ def get_summary_stats(user_id, date_from=None, date_to=None):
     total = conn.execute(
         f"SELECT COALESCE(SUM(amount), 0) FROM expenses {where}", params
     ).fetchone()[0]
-    count = conn.execute(
-        f"SELECT COUNT(*) FROM expenses {where}", params
-    ).fetchone()[0]
+    count = conn.execute(f"SELECT COUNT(*) FROM expenses {where}", params).fetchone()[0]
     top = conn.execute(
         f"SELECT category FROM expenses {where} "
         "GROUP BY category ORDER BY SUM(amount) DESC, category LIMIT 1",
@@ -80,6 +78,15 @@ def get_expense(id):
     if row is None:
         return None
     return dict(row)
+
+
+def delete_expense(id):
+    conn = get_db()
+    try:
+        conn.execute("DELETE FROM expenses WHERE id = ?", (id,))
+        conn.commit()
+    finally:
+        conn.close()
 
 
 def update_expense(id, amount, category, date, description):
