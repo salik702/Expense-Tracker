@@ -13,16 +13,17 @@
 <!-- Badge Row 1 -->
 <p>
   <img src="https://img.shields.io/badge/PROJECT-Spendly%20Expense%20Tracker-0ea5e9?style=for-the-badge&logo=bookstack&logoColor=white&labelColor=020817" />
-  <img src="https://img.shields.io/badge/FRAMEWORK-Flask%20%2B%20Jinja2-61DAFB?style=for-the-badge&logo=flask&logoColor=white&labelColor=020817" />
+  <img src="https://img.shields.io/badge/FRAMEWORK-Flask%203.1%20%2B%20Jinja2-61DAFB?style=for-the-badge&logo=flask&logoColor=white&labelColor=020817" />
   <img src="https://img.shields.io/badge/LANGUAGE-Python%203.13-F7DF1E?style=for-the-badge&logo=python&logoColor=black&labelColor=020817" />
-  <img src="https://img.shields.io/badge/STATUS-Development-22c55e?style=for-the-badge&logo=github&logoColor=white&labelColor=020817" />
+  <img src="https://img.shields.io/badge/STATUS-Active-22c55e?style=for-the-badge&logo=github&logoColor=white&labelColor=020817" />
 </p>
 
 <!-- Badge Row 2 -->
 <p>
   <img src="https://img.shields.io/badge/DATABASE-SQLite-22d3ee?style=for-the-badge&logo=sqlite&logoColor=white&labelColor=020817" />
   <img src="https://img.shields.io/badge/STYLING-Custom%20CSS%20%2B%20Design%20Tokens-f97316?style=for-the-badge&logo=css3&logoColor=white&labelColor=020817" />
-  <img src="https://img.shields.io/badge/THEME-Dark%20%7C%20Light%20Toggle-646CFF?style=for-the-badge&logo=materialsymbols&logoColor=white&labelColor=020817" />
+  <img src="https://img.shields.io/badge/SECURITY-CSRF%20%2B%20Werkzeug%20Hashing-f59e0b?style=for-the-badge&logo=security&logoColor=white&labelColor=020817" />
+  <img src="https://img.shields.io/badge/TESTING-pytest%20%2B%20pytest--flask-16a34a?style=for-the-badge&logo=pytest&logoColor=white&labelColor=020817" />
 </p>
 
 </div>
@@ -42,10 +43,11 @@
 | 05 | Quickstart | [`QUICKSTART.SETUP`](#-quickstartsetup--get-running-in-5-minutes) |
 | 06 | Development Guide | [`DEV.WORKFLOW`](#-devworkflow--tests--commands) |
 | 07 | API Surface | [`ROUTES.MAP`](#-routesmap--available-endpoints) |
-| 08 | Roadmap | [`ROADMAP`](#-roadmap--future-work) |
-| 09 | Contribution Guide | [`CONTRIBUTION.PROTOCOL`](#-contributionprotocol--how-to-help) |
-| 10 | Visual Identity | [`DESIGN.AESTHETIC`](#-designaesthetic--visual-identity) |
-| 11 | License & Support | [`SUPPORT.LICENSE`](#-supportlicense--star--report--follow) |
+| 08 | Security & Data | [`SECURITY.MODEL`](#-securitymodel--sessions-csrf--data) |
+| 09 | Roadmap | [`ROADMAP`](#-roadmap--future-work) |
+| 10 | Contribution Guide | [`CONTRIBUTION.PROTOCOL`](#-contributionprotocol--how-to-help) |
+| 11 | Visual Identity | [`DESIGN.AESTHETIC`](#-designaesthetic--visual-identity) |
+| 12 | License & Support | [`SUPPORT.LICENSE`](#-supportlicense--star--report--follow) |
 
 <br/>
 
@@ -57,16 +59,16 @@
 
 **Spendly** is a personal expense tracking web application built with **Flask**. It helps you log expenses, spot spending patterns, and stay on budget — without the spreadsheet headache.
 
-Users can add expenses with **category, amount, date, and description**, then visualize their spending through **category breakdowns** and **monthly summaries**.
+Users can register, sign in, add expenses with **category, amount, date, and description**, then visualise their spending through **category breakdowns**, **monthly summaries**, and **date-range filters** on a personal profile dashboard.
 
-Built with **Flask + Jinja2** for server-side rendering and **Custom CSS** with design tokens for a warm editorial aesthetic. Features automatic dark/light theme detection with manual toggle.
+Built with **Flask + Jinja2** for server-side rendering, **SQLite** for zero-config storage, and **custom CSS** with design tokens for a warm editorial aesthetic. Features automatic dark/light theme detection with a manual toggle, CSRF-protected forms, and Werkzeug password hashing.
 
 ### Why Spendly?
 
 | `PROBLEM` | `SOLUTION` |
 | :-------- | :--------- |
 | Spreadsheets are tedious and error-prone | One-click expense logging with structured fields |
-| No insight into spending habits | Category breakdowns and time-based summaries |
+| No insight into spending habits | Category breakdowns, recent transactions, and date filtering |
 | Complex finance apps are overkill | A clean, focused, personal tracker |
 
 <br/>
@@ -81,13 +83,18 @@ Built with **Flask + Jinja2** for server-side rendering and **Custom CSS** with 
 
 | `FEATURE` | `DESCRIPTION` | `STATUS` |
 | :-------: | :------------ | :------: |
+| 🔐 User Accounts | Register, sign in, sign out with Werkzeug-hashed passwords | `✅ LIVE` |
 | 💰 Log Expenses | Add any expense in seconds with all details | `✅ LIVE` |
-| 📂 Category Management | Organize expenses by custom categories | `✅ LIVE` |
-| 📈 Spending Patterns | See exactly where your money goes | `✅ LIVE` |
-| 🗓️ Time Filtering | View spending for any date range | `🟢 PLANNED` |
-| 🎯 Budget Tracking | Monitor budget usage and remaining amounts | `🟢 PLANNED` |
+| ✏️ Edit Expenses | Update any field of an existing expense | `✅ LIVE` |
+| 🗑️ Delete Expenses | Remove expenses with CSRF-protected POST | `✅ LIVE` |
+| � Category Breakdown | Per-category totals and share of spending | `✅ LIVE` |
+| 📈 Profile Dashboard | Summary stats, recent transactions, category cards | `✅ LIVE` |
+| 🗓️ Date Filtering | Preset ranges (this month, 3 months, 6 months) + custom range | `✅ LIVE` |
+| 📊 Analytics Page | Dedicated analytics view | `✅ LIVE` |
+| 🛡️ CSRF Protection | Token-based form protection on every state-changing request | `✅ LIVE` |
 | 🌓 Theme Support | Automatic dark/light detection + manual toggle | `✅ LIVE` |
 | 📱 Responsive Design | Works on desktop and mobile devices | `✅ LIVE` |
+| 🧪 Test Suite | pytest + pytest-flask covering every shipped feature | `✅ LIVE` |
 
 </div>
 
@@ -105,20 +112,24 @@ Built with **Flask + Jinja2** for server-side rendering and **Custom CSS** with 
 <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
 <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" />
 <img src="https://img.shields.io/badge/Jinja2-B4418D?style=for-the-badge&logo=jinja&logoColor=white" />
+<img src="https://img.shields.io/badge/Werkzeug-B71C1C?style=for-the-badge&logo=security&logoColor=white" />
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
 <img src="https://img.shields.io/badge/UV-3B82F6?style=for-the-badge&logo=uv&logoColor=white" />
+<img src="https://img.shields.io/badge/pytest-16a34a?style=for-the-badge&logo=pytest&logoColor=white" />
 
 </div>
 
 | `LAYER` | `TECHNOLOGY` | `PURPOSE` |
 | :------ | :----------- | :-------- |
-| Backend | Flask 3.1 / Werkzeug 3.1 | Routing, server-side rendering |
+| Backend | Flask 3.1.3 / Werkzeug 3.1.6 | Routing, sessions, password hashing |
 | Language | Python 3.13 | Core application logic |
-| Storage | SQLite | Local, zero-config database |
+| Storage | SQLite (stdlib `sqlite3`) | Local, zero-config database |
 | Templating | Jinja2 | Dynamic HTML generation |
-| Frontend | CSS3 + JS (vanilla) | Design tokens, theme toggle |
+| Forms | CSRF tokens + `flask.session` | Cross-site request forgery protection |
+| Frontend | CSS3 + vanilla JS | Design tokens, theme toggle |
+| Testing | pytest 8.3.5 + pytest-flask 1.3.0 | Feature-level integration tests |
 | Tooling | uv | Dependency + environment management |
 
 <br/>
@@ -131,25 +142,47 @@ Built with **Flask + Jinja2** for server-side rendering and **Custom CSS** with 
 
 ```text
 expense-tracker/
-├── app.py                         ← Flask application and all routes
-├── pyproject.toml                ← Project metadata and dependencies
-├── .python-version               ← Python version constraint (3.13)
+├── app.py                          ← Flask app, all routes, CSRF middleware
+├── pyproject.toml                  ← Project metadata + dependencies
+├── uv.lock                         ← uv lockfile for reproducible installs
+├── .python-version                 ← Python version pin (3.13)
+├── opencode.json                   ← OpenCode agent/command config
+│
 ├── database/
 │   ├── __init__.py
-│   └── db.py                     ← Database setup, init, and seeding
+│   ├── db.py                       ← init_db, seed_db, CATEGORIES, get_db
+│   └── queries.py                  ← CRUD + analytics SQL helpers
+│
 ├── static/
 │   ├── css/
-│   │   ├── style.css             ← Global styles and design tokens
-│   │   └── landing.css           ← Landing page specific styles
+│   │   ├── style.css               ← Global styles + design tokens
+│   │   └── landing.css             ← Landing page styles
 │   └── js/
-│       └── main.js               ← Theme toggle and shared JavaScript
-└── templates/
-    ├── base.html                 ← Base template with navbar and footer
-    ├── landing.html              ← Marketing landing page
-    ├── login.html                ← User login page
-    ├── register.html             ← User registration page
-    ├── terms.html                ← Terms and Conditions
-    └── privacy.html              ← Privacy Policy
+│       └── main.js                 ← Theme toggle + shared JS
+│
+├── templates/
+│   ├── base.html                   ← Shared navbar + footer
+│   ├── landing.html                ← Marketing landing page
+│   ├── register.html               ← Registration form
+│   ├── login.html                  ← Sign-in form
+│   ├── profile.html                ← User dashboard (stats, transactions, categories)
+│   ├── analytics.html              ← Analytics view
+│   ├── add_expense.html            ← Create-expense form (CSRF)
+│   ├── edit_expense.html           ← Edit-expense form (CSRF)
+│   ├── terms.html                  ← Terms and Conditions
+│   └── privacy.html                ← Privacy Policy
+│
+├── tests/
+│   ├── test_backend_connection.py  ← Smoke tests for the app boot
+│   ├── test_date_filter.py         ← Profile date-filter helpers
+│   ├── test_06-date-filter-profile.py
+│   ├── test_07-add-expense.py      ← Add-expense flow (validation, CSRF, DB)
+│   ├── test_08-edit-expense.py     ← Edit-expense flow (ownership, validation)
+│   └── test_09-delete-expense.py   ← Delete-expense flow (CSRF, ownership)
+│
+├── seed_user.py                    ← Seed a demo user
+├── seed_expenses.py                ← Seed demo expenses
+└── expense_tracker.db              ← Local SQLite database (gitignored)
 ```
 
 <br/>
@@ -175,12 +208,11 @@ cd expense-tracker
 # 2. Create venv and install dependencies
 uv sync
 
-# 3. Initialize the database
-python -c "from database.db import init_db; init_db()"
-
-# 4. Start the development server
+# 3. Start the development server
 python app.py
 ```
+
+The database is initialised and seeded automatically on app boot — no manual step required.
 
 ### Option B — With pip
 
@@ -193,9 +225,8 @@ cd expense-tracker
 python -m venv .venv
 source .venv/bin/activate        # On Windows: .venv\Scripts\activate
 
-# 3. Install dependencies and init database
+# 3. Install dependencies
 pip install -e .
-python -c "from database.db import init_db; init_db()"
 
 # 4. Start the development server
 python app.py
@@ -218,10 +249,16 @@ python app.py
 | `TASK` | `COMMAND` |
 | :----- | :-------- |
 | Run the app | `python app.py` |
-| Run test suite | `pytest` |
-| Init database | `python -c "from database.db import init_db; init_db()"` |
-| Seed sample data | `python -c "from database.db import seed_db; seed_db()"` |
+| Run the full test suite | `pytest` |
+| Run a single test file | `pytest tests/test_07-add-expense.py` |
+| Initialise the database only | `python -c "from database.db import init_db; init_db()"` |
+| Seed the database only | `python -c "from database.db import seed_db; seed_db()"` |
+| Seed a demo user | `python seed_user.py` |
+| Seed demo expenses | `python seed_expenses.py` |
 | Sync dependencies | `uv sync` |
+| Lint / format (via opencode) | configured in `opencode.json` |
+
+> 💡 `app.py` calls `init_db()` and `seed_db()` on startup, so the database is ready the first time you boot the server.
 
 <br/>
 
@@ -236,51 +273,82 @@ python app.py
 | `ROUTE` | `METHOD` | `DESCRIPTION` | `STATUS` |
 | :------ | :------: | :------------ | :------: |
 | `/` | GET | Landing page | `✅ ACTIVE` |
-| `/register` | GET | User registration page | `✅ ACTIVE` |
-| `/login` | GET | User login page | `✅ ACTIVE` |
-| `/logout` | GET | User logout | `🟢 PLANNED` |
-| `/profile` | GET | User profile dashboard | `🟢 PLANNED` |
-| `/expenses/add` | GET/POST | Add new expense | `🟢 PLANNED` |
-| `/expenses/<int:id>/edit` | GET/POST | Edit existing expense | `🟢 PLANNED` |
-| `/expenses/<int:id>/delete` | POST | Delete expense | `🟢 PLANNED` |
-| `/expenses` | GET | View all expenses | `🟢 PLANNED` |
+| `/register` | GET, POST | Create an account | `✅ ACTIVE` |
+| `/login` | GET, POST | Sign in | `✅ ACTIVE` |
+| `/logout` | GET | Sign out and clear session | `✅ ACTIVE` |
+| `/profile` | GET | User dashboard (stats, transactions, categories, filters) | `✅ ACTIVE` |
+| `/analytics` | GET | Analytics view | `✅ ACTIVE` |
+| `/expenses/add` | GET, POST | Add a new expense (CSRF) | `✅ ACTIVE` |
+| `/expenses/<int:id>/edit` | GET, POST | Edit an existing expense (CSRF) | `✅ ACTIVE` |
+| `/expenses/<int:id>/delete` | POST | Delete an expense (CSRF) | `✅ ACTIVE` |
 | `/terms` | GET | Terms and Conditions | `✅ ACTIVE` |
 | `/privacy` | GET | Privacy Policy | `✅ ACTIVE` |
 
 </div>
 
+All mutating endpoints are gated by `@app.before_request` CSRF middleware and require a signed-in user (except `/register` and `/login`). Expense endpoints enforce ownership — a user can only see and mutate their own rows.
+
 <br/>
 
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png" width="100%"/>
 
-<!-- ===================== 08. ROADMAP ===================== -->
+<!-- ===================== 08. SECURITY ===================== -->
+
+## `> SECURITY.MODEL — SESSIONS, CSRF & DATA`
+
+Spendly takes a pragmatic, dependency-light approach to security:
+
+| `CONCERN` | `MITIGATION` |
+| :-------- | :----------- |
+| Password storage | `werkzeug.security.generate_password_hash` (PBKDF2 by default) |
+| Password verification | Constant-time `check_password_hash` on login |
+| Session integrity | Flask's signed `session` cookie; `SECRET_KEY` read from `SPENDLY_SECRET_KEY` env var |
+| CSRF | Per-session token generated by `@app.before_request`; validated on every POST |
+| Cookie scope | `SESSION_COOKIE_SAMESITE = "Lax"` |
+| Authorisation | Expense routes check `expense.user_id == session["user_id"]` and `404` otherwise |
+| Input validation | Server-side checks on amount (`> 0`, finite), date (`YYYY-MM-DD`), category (allow-list), description (`≤ 200` chars) |
+
+> 🔐 **In production**, set `SPENDLY_SECRET_KEY` to a long random value and run behind HTTPS.
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png" width="100%"/>
+
+<!-- ===================== 09. ROADMAP ===================== -->
 
 ## `> ROADMAP — FUTURE WORK`
 
-### Core Features
+### Shipped in v0.1 ✅
 
-- [ ] User authentication system (Flask-Login)
-- [ ] Database models for users and expenses
-- [ ] CRUD operations for expenses
+- [x] User registration, login, logout with password hashing
+- [x] Personal profile dashboard (stats, transactions, categories)
+- [x] Add / edit / delete expenses with CSRF protection
+- [x] Date filtering with presets + custom range
+- [x] Analytics view
+- [x] Dark / light theme with manual toggle
+- [x] pytest + pytest-flask test suite per feature
 
-### Analytics
+### Next up
 
-- [ ] Expense filtering by date range
-- [ ] Category-based spending analysis
-- [ ] Monthly budget tracking
-- [ ] Charts and visualizations (Chart.js)
+- [ ] CSV / Excel export of expenses
+- [ ] Search across expense descriptions
+- [ ] Monthly budget caps with progress bars
+- [ ] Chart.js visualisations on the analytics page
+- [ ] Password reset flow
+- [ ] Email verification on registration
 
-### Quality of Life
+### Quality of life
 
-- [ ] Export data to CSV/Excel
-- [ ] Search functionality for expenses
-- [ ] Password reset functionality
+- [ ] Pagination on the transactions list
+- [ ] Bulk delete
+- [ ] Receipt attachments
+- [ ] Recurring-expense templates
 
 <br/>
 
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png" width="100%"/>
 
-<!-- ===================== 09. CONTRIBUTING ===================== -->
+<!-- ===================== 10. CONTRIBUTING ===================== -->
 
 ## `> CONTRIBUTION.PROTOCOL — HOW TO HELP`
 
@@ -299,13 +367,13 @@ git push origin feature/your-improvement
 - ✅ Follow the existing code style
 - ✅ Describe what your PR changes and why
 - ✅ Keep commits focused and atomic
-- 🧪 Run `pytest` before opening a PR
+- 🧪 Run `pytest` before opening a PR — every shipped feature has a matching test file
 
 <br/>
 
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png" width="100%"/>
 
-<!-- ===================== 10. DESIGN ===================== -->
+<!-- ===================== 11. DESIGN ===================== -->
 
 ## `> DESIGN.AESTHETIC — VISUAL IDENTITY`
 
@@ -322,7 +390,7 @@ Spendly uses a **warm editorial aesthetic** with:
 
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png" width="100%"/>
 
-<!-- ===================== 11. LICENSE & SUPPORT ===================== -->
+<!-- ===================== 12. LICENSE & SUPPORT ===================== -->
 
 ## `> SUPPORT.LICENSE — STAR · REPORT · FOLLOW`
 
@@ -349,7 +417,7 @@ If this project helped you with expense tracking or Flask development, consider 
 <br/><br/>
 
 <!-- Skill Capsule -->
-<img src="https://capsule-render.vercel.app/api?type=soft&color=0:020817,100:0e3a6e&height=58&text=Flask%20%20%7C%20%20Python%20%20%7C%20%20SQLite%20%20%7C%20%20Jinja2%20%20%7C%20%20CSS3%20%20%7C%20%20JS&fontSize=16&fontColor=67e8f9&animation=fadeIn" width="80%" />
+<img src="https://capsule-render.vercel.app/api?type=soft&color=0:020817,100:0e3a6e&height=58&text=Flask%20%7C%20Python%20%7C%20SQLite%20%7C%20Jinja2%20%7C%20Werkzeug%20%7C%20pytest&fontSize=16&fontColor=67e8f9&animation=fadeIn" width="80%" />
 
 <br/><br/>
 
