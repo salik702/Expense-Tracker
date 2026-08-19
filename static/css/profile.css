@@ -45,6 +45,11 @@
     margin-bottom: 0.35rem;
 }
 
+[data-theme="dark"] .profile-avatar {
+    background: var(--accent-strong);
+    color: #f0fdf5;
+}
+
 .profile-user-meta {
     font-size: 0.9rem;
     color: var(--ink-muted);
@@ -100,6 +105,22 @@
     color: var(--paper);
 }
 
+[data-theme="dark"] .preset-btn.is-active {
+    color: #04241a;
+}
+
+[data-theme="dark"] .apply-btn {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
+    color: #f0fdf5;
+}
+
+[data-theme="dark"] .apply-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #04241a;
+}
+
 .custom-range {
     display: flex;
     flex-wrap: wrap;
@@ -128,6 +149,11 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 0.4rem 0.6rem;
+}
+
+[data-theme="dark"] .date-input {
+    background: var(--paper-raised);
+    color-scheme: dark;
 }
 
 .apply-btn {
@@ -165,6 +191,18 @@
 .profile-add-btn:hover {
     background: var(--accent-2);
     border-color: var(--accent-2);
+}
+
+[data-theme="dark"] .profile-add-btn {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
+    color: #f0fdf5;
+}
+
+[data-theme="dark"] .profile-add-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #04241a;
 }
 
 /* ------------------------------------------------------------------ */
@@ -265,6 +303,10 @@
     background: var(--paper-warm);
 }
 
+[data-theme="dark"] .transactions-table tbody tr:hover {
+    background: var(--paper-raised);
+}
+
 .transactions-table tbody tr:last-child td {
     border-bottom: none;
 }
@@ -298,6 +340,10 @@
     color: var(--paper);
 }
 
+[data-theme="dark"] .txn-edit-link:hover {
+    color: #04241a;
+}
+
 .txn-delete-form {
     display: inline;
     margin: 0;
@@ -321,6 +367,12 @@
 
 .txn-delete-btn:hover {
     background: var(--danger);
+    color: var(--paper);
+}
+
+[data-theme="dark"] .txn-delete-btn:hover {
+    background: var(--danger-strong);
+    border-color: var(--danger-strong);
     color: var(--paper);
 }
 

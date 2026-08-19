@@ -90,7 +90,7 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 1.25rem 1.5rem 1.5rem;
-    box-shadow: 0 12px 50px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-card);
     text-align: left;
 }
 
@@ -248,8 +248,9 @@
     background: var(--modal-panel-bg);
     color: var(--modal-panel-fg);
     border-radius: var(--radius-md);
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-modal);
     overflow: hidden;
+    border: 1px solid var(--border);
 }
 
 .demo-modal-close {
@@ -274,6 +275,15 @@
 
 .demo-modal-close:hover { background: rgba(255, 255, 255, 0.22); }
 .demo-modal-close:focus { outline: 2px solid var(--paper); outline-offset: 2px; }
+
+[data-theme="dark"] .demo-modal-close {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--ink);
+}
+[data-theme="dark"] .demo-modal-close:hover {
+    background: var(--accent-strong);
+    color: #f0fdf5;
+}
 
 .demo-modal-video {
     position: relative;
