@@ -276,6 +276,28 @@
     font-weight: 500;
 }
 
+.transactions-table .txn-actions {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.txn-edit-link {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 0.2rem 0.6rem;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.txn-edit-link:hover {
+    background: var(--accent);
+    color: var(--paper);
+}
+
 /* ------------------------------------------------------------------ */
 /* Category badges                                                     */
 /* ------------------------------------------------------------------ */

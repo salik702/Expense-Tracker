@@ -203,7 +203,7 @@ def test_get_recent_transactions_date_range_filters_expenses(dated_expenses):
     assert [t["date"] for t in txns] == ["2000-03-10", "2000-02-15"]
     assert [t["amount"] for t in txns] == [50.00, 100.00]
     for txn in txns:
-        assert set(txn.keys()) == {"date", "description", "category", "amount"}
+        assert set(txn.keys()) == {"id", "date", "description", "category", "amount"}
 
 
 def test_get_recent_transactions_limit_applies_with_date_range(dated_expenses):

@@ -1,0 +1,13 @@
+/* ------------------------------------------------------------------ */
+/* Edit expense page                                                    */
+/* ------------------------------------------------------------------ */
+
+/* Shared form styling (amount prefix, form-select, form-hint) is       */
+/* provided by add_expense.css; this file only adds page-specific       */
+/* rules using CSS variables.                                           */
+
+@media (max-width: 600px) {
+    .auth-section {
+        padding: 2rem 1rem;
+    }
+}

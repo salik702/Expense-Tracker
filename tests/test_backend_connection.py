@@ -97,7 +97,7 @@ def test_get_recent_transactions_ordered(seed_id):
     dates = [t["date"] for t in txns]
     assert dates == sorted(dates, reverse=True)
     for t in txns:
-        assert set(t.keys()) == {"date", "description", "category", "amount"}
+        assert set(t.keys()) == {"id", "date", "description", "category", "amount"}
 
 
 def test_get_recent_transactions_no_expenses(empty_user_id):

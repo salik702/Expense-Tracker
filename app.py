@@ -11,10 +11,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from database.db import CATEGORIES, get_db, init_db, seed_db, get_user_by_email
 from database.queries import (
     get_category_breakdown,
+    get_expense,
     get_recent_transactions,
     get_summary_stats,
     get_user_by_id,
     insert_expense,
+    update_expense,
 )
 
 app = Flask(__name__)
@@ -352,9 +354,62 @@ def add_expense():
     )
 
 
-@app.route("/expenses/<int:id>/edit")
+@app.route("/expenses/<int:id>/edit", methods=["GET", "POST"])
 def edit_expense(id):
-    return "Edit expense — coming in Step 8"
+    if not session.get("user_id"):
+        return redirect(url_for("login"))
+
+    expense = get_expense(id)
+    if expense is None or expense["user_id"] != session["user_id"]:
+        abort(404)
+
+    if request.method == "GET":
+        return render_template(
+            "edit_expense.html",
+            expense=expense,
+            categories=CATEGORIES,
+            amount=f"{expense['amount']:.2f}",
+            category=expense["category"],
+            date=expense["date"],
+            description=expense["description"] or "",
+        )
+
+    if request.form.get("csrf_token") != session.get("csrf_token"):
+        abort(400)
+
+    amount = request.form.get("amount", "").strip()
+    category = request.form.get("category", "").strip()
+    date_str = request.form.get("date", "").strip()
+    description = request.form.get("description", "").strip()
+    form_data = {
+        "expense": expense,
+        "amount": amount,
+        "category": category,
+        "date": date_str,
+        "description": description,
+    }
+
+    try:
+        amount_value = float(amount)
+    except (TypeError, ValueError):
+        amount_value = None
+
+    if amount_value is None or not math.isfinite(amount_value) or amount_value <= 0:
+        error = "Please enter a valid amount greater than 0."
+    elif len(description) > 200:
+        error = "Description must be 200 characters or fewer."
+    elif category not in CATEGORIES:
+        error = "Please choose a valid category."
+    elif _parse_date(date_str) is None:
+        error = "Please enter a valid date."
+    else:
+        update_expense(id, amount_value, category, date_str, description)
+        flash("Expense updated.")
+        return redirect(url_for("profile"))
+
+    return render_template(
+        "edit_expense.html", error=error, categories=CATEGORIES, **form_data
+    )
 
 
 @app.route("/expenses/<int:id>/delete")

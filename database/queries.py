@@ -52,13 +52,14 @@ def get_recent_transactions(user_id, limit=10, date_from=None, date_to=None):
     where, params = _date_where(user_id, date_from, date_to)
     conn = get_db()
     rows = conn.execute(
-        f"SELECT date, description, category, amount FROM expenses {where} "
+        f"SELECT id, date, description, category, amount FROM expenses {where} "
         "ORDER BY date DESC, id DESC LIMIT ?",
         params + (limit,),
     ).fetchall()
     conn.close()
     return [
         {
+            "id": row["id"],
             "date": row["date"],
             "description": row["description"],
             "category": row["category"],
@@ -66,6 +67,32 @@ def get_recent_transactions(user_id, limit=10, date_from=None, date_to=None):
         }
         for row in rows
     ]
+
+
+def get_expense(id):
+    conn = get_db()
+    row = conn.execute(
+        "SELECT id, user_id, amount, category, date, description FROM expenses "
+        "WHERE id = ?",
+        (id,),
+    ).fetchone()
+    conn.close()
+    if row is None:
+        return None
+    return dict(row)
+
+
+def update_expense(id, amount, category, date, description):
+    conn = get_db()
+    try:
+        conn.execute(
+            "UPDATE expenses SET amount = ?, category = ?, date = ?, description = ? "
+            "WHERE id = ?",
+            (amount, category, date, description or None, id),
+        )
+        conn.commit()
+    finally:
+        conn.close()
 
 
 def get_category_breakdown(user_id, date_from=None, date_to=None):
